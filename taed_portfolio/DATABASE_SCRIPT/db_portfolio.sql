@@ -1,8 +1,8 @@
--- Database: db_potfolio
+-- Database: db_portfolio
 
--- DROP DATABASE db_potfolio;
+-- DROP DATABASE db_portfolio;
 
-CREATE DATABASE db_potfolio
+CREATE DATABASE db_portfolio
     WITH 
     OWNER = postgres
     ENCODING = 'UTF8'
@@ -10,7 +10,6 @@ CREATE DATABASE db_potfolio
     LC_CTYPE = 'Portuguese_Brazil.1252'
     TABLESPACE = pg_default
     CONNECTION LIMIT = 2;
-    
     
     -- -----------------------------------------------------
 -- Table Pessoa
