@@ -1,47 +1,61 @@
 package taed_portfolio.model.entidade;
 
 import java.util.Date;
+import java.util.LinkedList;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
+
 
 @Entity
 @Table(name = "projeto")
 public class Projeto extends BaseEntity {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 6788092750785437199L;
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	@Column(nullable=false, length=200)
+	@Column(nullable = false, length = 200)
 	private String nome;
-	
+
 	private Date data_inicio;
 	private Date data_previsao_fim;
 	private Date data_fim;
-	
-	@Column(length=5000)
-	private String descricao; // VARCHAR(5000) ,
-	
-	@Column(length=45)
+
+	@Column(length = 5000)
+	private String descricao;
+
+	@Column(length = 45)
 	private String status;
-	
+
 	private Float orcamento;
-	
-	@Column(length=45)
-	private String risco; // VARCHAR(45) ,
-	
-	@Column(nullable=false)
-	private Long idgerente;
+
+	@Column(length = 45)
+	private String risco;
+
+	@OneToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.DETACH}, fetch = FetchType.EAGER)
+	@JoinColumn(name = "idgerente", nullable = false)
+	private Pessoa gerente;
+
+	@ManyToMany(cascade = {CascadeType.REFRESH, CascadeType.DETACH}, fetch = FetchType.EAGER)
+	@JoinTable(name="membros", 
+				joinColumns= {@JoinColumn(name="idprojeto")}, 
+					inverseJoinColumns= {@JoinColumn(name="idpessoa")}
+	)
+	private List<Pessoa> pessoas;
 
 	public Projeto() {
 		super();
@@ -119,12 +133,23 @@ public class Projeto extends BaseEntity {
 		this.risco = risco;
 	}
 
-	public Long getIdgerente() {
-		return idgerente;
+	public Pessoa getGerente() {
+		return gerente;
 	}
 
-	public void setIdgerente(Long idgerente) {
-		this.idgerente = idgerente;
+	public void setGerente(Pessoa gerente) {
+			this.gerente = gerente;
+	}
+
+	public List<Pessoa> getPessoas() {
+		if(this.pessoas == null) {
+			this.pessoas = new LinkedList<>();
+		}
+		return pessoas;
+	}
+
+	public void setPessoas(List<Pessoa> pessoas) {
+		this.pessoas = pessoas;
 	}
 
 }

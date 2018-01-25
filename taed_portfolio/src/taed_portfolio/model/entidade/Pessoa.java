@@ -13,24 +13,27 @@ import javax.persistence.Table;
 @Table(name = "pessoa")
 public class Pessoa extends BaseEntity {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 8610118473501970665L;
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	
-	@Column(nullable=false, length=100)
+
+	@Column(nullable = false, length = 100)
 	private String nome;
 	private Date datanascimento;
-	
-	@Column(length=14)
+
+	@Column(length = 14)
 	private String cpf;
-	
-	
+
 	private Boolean funcionario;
+
+//	@ManyToMany
+//	@JoinTable(name="membros", 
+//				joinColumns= {@JoinColumn(name="idpessoa")}, 
+//					inverseJoinColumns= {@JoinColumn(name="idprojeto")}
+//	)
+//	private List<Projeto> projetos;
 
 	public Pessoa() {
 		super();
@@ -75,5 +78,13 @@ public class Pessoa extends BaseEntity {
 	public void setFuncionario(Boolean funcionario) {
 		this.funcionario = funcionario;
 	}
+
+//	public List<Projeto> getProjetos() {
+//		return projetos;
+//	}
+//
+//	public void setProjetos(List<Projeto> projetos) {
+//		this.projetos = projetos;
+//	}
 
 }

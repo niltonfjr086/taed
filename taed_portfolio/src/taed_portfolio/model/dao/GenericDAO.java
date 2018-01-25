@@ -9,7 +9,7 @@ import static taed_portfolio.model.FactoryDAO.sessionInstance;
 
 public class GenericDAO<T, PK> {
 
-	private Class<?> manipulada;
+	protected Class<?> manipulada;
 
 	public GenericDAO() {
 		 super();

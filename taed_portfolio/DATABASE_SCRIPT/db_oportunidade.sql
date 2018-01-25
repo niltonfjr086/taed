@@ -1,17 +1,17 @@
--- Database: db_portfolio
+-- Database: db_oportunidade
 
--- DROP DATABASE db_portfolio;
+-- DROP DATABASE db_oportunidade;
 
-CREATE DATABASE db_portfolio
+CREATE DATABASE db_oportunidade
     WITH 
     OWNER = postgres
     ENCODING = 'UTF8'
     LC_COLLATE = 'Portuguese_Brazil.1252'
     LC_CTYPE = 'Portuguese_Brazil.1252'
     TABLESPACE = pg_default
-    CONNECTION LIMIT = 2;
+    CONNECTION LIMIT = 4;
     
-    -- -----------------------------------------------------
+-- -----------------------------------------------------
 -- Table Pessoa
 -- -----------------------------------------------------
 CREATE TABLE pessoa
@@ -40,13 +40,13 @@ CONSTRAINT fk_gerente FOREIGN KEY (idgerente)
 REFERENCES pessoa (id) MATCH SIMPLE
 ON UPDATE NO ACTION ON DELETE NO ACTION)
 -- -----------------------------------------------------
--- Table Membros
+-- Table Membros SCRIPT MODIFICADO CHAVE PRIMARIA COMPOSTA POR DUAS IDs ESTRANGEIRAS
 -- -----------------------------------------------------
 CREATE TABLE membros
 ( idprojeto bigserial NOT NULL,
 idpessoa bigint NOT NULL,
-CONSTRAINT pk_membros_projeto PRIMARY KEY (idprojeto),
-CONSTRAINT fk_membros_pessoa FOREIGN KEY (idpessoa)
+CONSTRAINT pk_membros_projeto PRIMARY KEY (idprojeto, idpessoa),
+CONSTRAINT fk_projeto FOREIGN KEY (idprojeto)
 REFERENCES projeto (id) MATCH SIMPLE
 ON UPDATE NO ACTION ON DELETE NO ACTION,
 CONSTRAINT fk_pessoa FOREIGN KEY (idpessoa)

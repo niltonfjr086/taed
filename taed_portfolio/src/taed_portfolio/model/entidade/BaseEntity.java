@@ -8,9 +8,6 @@ import org.apache.commons.lang3.builder.ToStringStyle;
 
 public abstract class BaseEntity implements Serializable {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 632358806881759332L;
 	
 	
